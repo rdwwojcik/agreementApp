@@ -35,8 +35,6 @@ class UserServicesImplTest {
         User u = new User();
         u.setName("Radek");
         u.setLastName("Kowalski");
-        u.setMd5("asdas12312");
-
         Mockito.when(userRepository.findOne(1L)).thenReturn(u);
 
         User user = userServices.findUser(1L);

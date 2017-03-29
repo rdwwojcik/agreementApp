@@ -2,51 +2,61 @@ package agreement.rest.mvc;
 
 import agreement.core.entities.User;
 import agreement.core.services.UserServices;
-import org.junit.*;
-import org.junit.Test;
+import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.Test;
+import org.mockito.*;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.hamcrest.Matchers.nullValue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by Radek on 28.03.2017.
+ * Created by Radek on 29.03.2017.
  */
 class UserControllerTest {
 
-    private MockMvc mockMvc;
     @Mock
-    private UserServices   userServices;
+    private UserServices userServices;
     @InjectMocks
     private UserController userController;
+    private MockMvc mockMvc;
+
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+        this.mockMvc = MockMvcBuilders.standaloneSetup(new Object[]{this.userController}).build();
     }
 
     @Test
-    void getUser() throws Exception {
+    public void createUser() {
 
-        User user = new User(1L, "Franek", "Dolas", "asdasfasf");
+    }
 
-        mockMvc.perform(get("/rest/user/{userId}", 1))
+    @Test
+    public void getUser() throws Exception {
+        User user = new User(5L, "Franek", "Dolas", "sdasdas5");
+
+        Mockito.when(this.userServices.findUser(Long.valueOf(Matchers.eq(5L)))).thenReturn(user);
+
+        mockMvc.perform(get("/rest/user/5", new Object[0]))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                .andExpect(jsonPath("$.id", is(5)))
                 .andExpect(jsonPath("$.name", is("Franek")));
 
-        verify(userServices, times(1)).findUser(1L);
-
+        verify(userServices, times(1)).findUser(5L);
     }
 
 }

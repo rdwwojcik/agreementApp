@@ -8,6 +8,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
+
 /**
  * Created by Radek on 07.03.2017.
  */
@@ -21,16 +26,36 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<User> createUser(@RequestBody User user){
 
-        User user1 = userServices.createUser(user);
+        user.setMd5(generateMd5(user.getPassword()));
+        user.setCreationDate(new Date());
+        user.setModificationDate(new Date());
 
-        return new ResponseEntity<User>(user1, HttpStatus.OK);
+        User newUser = userServices.createUser(user);
+
+        return new ResponseEntity<User>(newUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    private ResponseEntity<User> getUser(@PathVariable Long userId){
+    public ResponseEntity<User> getUser(@PathVariable Long userId){
 
         User user = userServices.findUser(userId);
 
         return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+
+    private String generateMd5(String password) {
+        byte[] pass = null;
+        MessageDigest digest = null;
+
+        try {
+            pass = password.getBytes("UTF-8");
+            digest = MessageDigest.getInstance("MD5");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return new String(digest.digest(pass));
     }
 }

@@ -20,6 +20,10 @@ public class User {
     private String  name;
     @Column(name = "us_nazwisko")
     private String  lastName;
+    @Column(name = "us_login")
+    private String  login;
+    @Column(name = "us_haslo")
+    private String  password;
     @Column(name = "us_md5")
     private String  md5;
     @Column(name = "us_data_utworzenia")
@@ -33,11 +37,11 @@ public class User {
 
     public User(){}
 
-    public User(Long id, String name, String lastName, String md5) {
+    public User(Long id, String name, String lastName, String login) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.md5 = md5;
+        this.login = login;
     }
 
     public Long getId() {
@@ -62,6 +66,22 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getMd5() {
