@@ -1,6 +1,6 @@
 package agreement.core.entities;
 
-import agreement.core.custom_format.CustomDateSerializer;
+import agreement.core.tools.CustomDateSerializer;
 import agreement.core.entities.enums.KontrahentEnum;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

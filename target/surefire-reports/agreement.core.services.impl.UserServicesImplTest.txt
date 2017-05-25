@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+Test set: agreement.core.services.impl.UserServicesImplTest
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.129 sec <<< FAILURE! - in agreement.core.services.impl.UserServicesImplTest
+findUser(agreement.core.services.impl.UserServicesImplTest)  Time elapsed: 0.015 sec  <<< FAILURE!
+java.lang.AssertionError: 
+Expected: <1209464220>
+     but: was <1253946629>
+	at org.hamcrest.MatcherAssert.assertThat(MatcherAssert.java:20)
+	at org.junit.Assert.assertThat(Assert.java:956)
+	at org.junit.Assert.assertThat(Assert.java:923)
+	at agreement.core.services.impl.UserServicesImplTest.findUser(UserServicesImplTest.java:49)
+

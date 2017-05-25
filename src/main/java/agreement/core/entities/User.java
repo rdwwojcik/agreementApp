@@ -1,6 +1,7 @@
 package agreement.core.entities;
 
-import agreement.core.custom_format.CustomDateSerializer;
+import agreement.core.tools.CustomDateSerializer;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -23,8 +24,10 @@ public class User {
     @Column(name = "us_login")
     private String  login;
     @Column(name = "us_haslo")
+    @JsonIgnore
     private String  password;
     @Column(name = "us_md5")
+    @JsonIgnore
     private String  md5;
     @Column(name = "us_data_utworzenia")
     @Temporal(TemporalType.TIMESTAMP)
@@ -106,5 +109,27 @@ public class User {
 
     public void setModificationDate(Date modificationDate) {
         this.modificationDate = modificationDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (!id.equals(user.id)) return false;
+        if (!name.equals(user.name)) return false;
+        if (!lastName.equals(user.lastName)) return false;
+        return login.equals(user.login);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + lastName.hashCode();
+        result = 31 * result + login.hashCode();
+        return result;
     }
 }

@@ -1,8 +1,7 @@
 package agreement.core.entities;
 
-import agreement.core.custom_format.CustomDateSerializer;
+import agreement.core.tools.CustomDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 import java.util.Date;

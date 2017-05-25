@@ -1,17 +1,19 @@
 package agreement.rest.mvc;
 
-import agreement.core.entities.User;
-import agreement.core.services.UserServices;
+import agreement.core.dto.UserDTO;
+import agreement.core.exceptions.AccountDoesNotExistException;
+import agreement.core.exceptions.UserRegistrationException;
+import agreement.core.services.UserService;
+import agreement.rest.exceptions.FoundException;
+import agreement.rest.exceptions.NotFoudException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Radek on 07.03.2017.
@@ -21,41 +23,53 @@ import java.util.Date;
 public class UserController {
 
     @Autowired
-    private UserServices userServices;
+    private UserService userServices;
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO user){
 
-        user.setMd5(generateMd5(user.getPassword()));
-        user.setCreationDate(new Date());
-        user.setModificationDate(new Date());
+        UserDTO newUser = null;
 
-        User newUser = userServices.createUser(user);
+//        try {
+            newUser = userServices.createUser(user);
+            return new ResponseEntity<UserDTO>(newUser, HttpStatus.OK);
+//        }catch(UserRegistrationException ex){
+//            throw new FoundException("Account for this login exist in system: " + user.getLogin());
+//        }
+    }
 
-        return new ResponseEntity<User>(newUser, HttpStatus.OK);
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<UserDTO> updateUser(@RequestBody UserDTO user){
+
+        UserDTO updatedUser = userServices.updateUser(user);
+
+        return new ResponseEntity<UserDTO>(updatedUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<User> getUser(@PathVariable Long userId){
-
-        User user = userServices.findUser(userId);
-
-        return new ResponseEntity<User>(user, HttpStatus.OK);
-    }
-
-    private String generateMd5(String password) {
-        byte[] pass = null;
-        MessageDigest digest = null;
+    public ResponseEntity<UserDTO> getUser(@PathVariable Long userId){
 
         try {
-            pass = password.getBytes("UTF-8");
-            digest = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            UserDTO user = userServices.findById(userId);
+            return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
+        }catch (AccountDoesNotExistException e){
+            throw new NotFoudException("User not foud: " + userId);
         }
+    }
 
-        return new String(digest.digest(pass));
+    @RequestMapping(method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<UserDTO>> getUsers(){
+
+        List<UserDTO> users = userServices.findAll();
+
+        return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity deleteUser(@PathVariable Long userId){
+
+        userServices.deleteUser(userId);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

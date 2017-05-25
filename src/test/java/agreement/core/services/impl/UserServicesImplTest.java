@@ -1,43 +1,106 @@
 package agreement.core.services.impl;
 
+import agreement.core.dto.UserDTO;
 import agreement.core.entities.User;
+import agreement.core.mapper.UserMapper;
+import agreement.core.mapper.UserMapperImpl;
 import agreement.core.repositories.UserRepository;
-import agreement.core.services.UserServices;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.*;
 /**
  * Created by Radek on 08.03.2017.
  */
-class UserServicesImplTest {
+public class UserServicesImplTest {
 
+    private UserMapper mapper = new UserMapperImpl();
 
     @Mock
     private UserRepository userRepository;
+    @Mock
+    private UserMapper userMapper;
     @InjectMocks
     private UserServicesImpl userServices;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
-    void findUser() {
+    public void findUser() {
 
         User u = new User();
+        u.setId(1L);
         u.setName("Radek");
         u.setLastName("Kowalski");
+        u.setLogin("bkowalski");
         Mockito.when(userRepository.findOne(1L)).thenReturn(u);
+        Mockito.when(userMapper.toDTO(u)).thenReturn(mapper.toDTO(u));
 
-        User user = userServices.findUser(1L);
-        System.out.println("Last: " + user.getLastName());
+        UserDTO user = userServices.findById(1L);
+
+        assertThat(user.hashCode(), equalTo(u.hashCode()));
+    }
+
+    @Test
+    public void createUser() throws Exception {
+        User newUser = getNewUser();
+        UserDTO userDTO = mapper.toDTO(newUser);
+        Mockito.when(userRepository.save(newUser)).thenReturn(newUser);
+        Mockito.when(userMapper.fromDTO(userDTO)).thenReturn(newUser);
+        Mockito.when(userMapper.toDTO(newUser)).thenReturn(userDTO);
+
+        UserDTO result = userServices.createUser(userDTO);
+
+        assertThat(result, is(notNullValue()));
+        verify(userRepository).save((User) any());
+        verify(userRepository, times(1)).save(newUser);
+    }
+
+    @Test
+    public void updateUser() throws Exception {
+
+    }
+
+    @Test
+    public void findById() throws Exception {
+
+    }
+
+    @Test
+    public void findByLogin() throws Exception {
+
+    }
+
+    @Test
+    public void findAll() throws Exception {
+
+    }
+
+    @Test
+    public void deleteUser() throws Exception {
+
+    }
+
+    private User getNewUser(){
+        User newUser = new User();
+        newUser.setId(1L);
+        newUser.setName("Kacper");
+        newUser.setLastName("Wójcik");
+        newUser.setLogin("kwojcik");
+        newUser.setPassword("kacperek");
+
+        return newUser;
+    }
+
+    private UserDTO getNewUserDTO(){
+        return mapper.toDTO(getNewUser());
     }
 }
