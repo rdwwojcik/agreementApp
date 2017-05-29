@@ -33,17 +33,22 @@ public class ErrorHandler {
 //    @ResponseStatus(value = HttpStatus.FOUND, reason = "User already exists")
     public ResponseEntity<Object> handleUserRegistration(UserRegistrationException ex){
 
-        String body = "";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        String body;
+        HttpStatus status = null;
 
         switch (ex.getFailReason()){
-            case USER_ALREADY_EXISTS:   { body = "User already exists"; break; }
-            case USER_NOT_EXISTS:       { body = "User not exists"; break;}
+            case USER_ALREADY_EXISTS:   {
+                body = "User already exists";
+                status = HttpStatus.FOUND;
+                break; }
+            case USER_NOT_EXISTS:       {
+                body = "User not exists";
+                status = HttpStatus.NOT_FOUND;
+                break;}
             default: { body = "Brak wiadomosci"; }
         }
 
-        return new ResponseEntity<Object>(body, headers, HttpStatus.FOUND);
+        return new ResponseEntity<>(body, new HttpHeaders(), status);
     }
 
 //    @ExceptionHandler(MethodArgumentNotValidException.class)

@@ -2,9 +2,7 @@ package agreement.rest.mvc;
 
 import agreement.core.dto.UserDTO;
 import agreement.core.exceptions.AccountDoesNotExistException;
-import agreement.core.exceptions.UserRegistrationException;
 import agreement.core.services.UserService;
-import agreement.rest.exceptions.FoundException;
 import agreement.rest.exceptions.NotFoudException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,20 +20,17 @@ import java.util.List;
 @RequestMapping("/rest/user")
 public class UserController {
 
-    @Autowired
     private UserService userServices;
+
+    @Autowired
+    public UserController(UserService userService){
+        this.userServices = userService;
+    }
 
     @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO user){
 
-        UserDTO newUser = null;
-
-//        try {
-            newUser = userServices.createUser(user);
-            return new ResponseEntity<UserDTO>(newUser, HttpStatus.OK);
-//        }catch(UserRegistrationException ex){
-//            throw new FoundException("Account for this login exist in system: " + user.getLogin());
-//        }
+        return new ResponseEntity<>(userServices.createUser(user), HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
@@ -43,7 +38,7 @@ public class UserController {
 
         UserDTO updatedUser = userServices.updateUser(user);
 
-        return new ResponseEntity<UserDTO>(updatedUser, HttpStatus.OK);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -51,7 +46,7 @@ public class UserController {
 
         try {
             UserDTO user = userServices.findById(userId);
-            return new ResponseEntity<UserDTO>(user, HttpStatus.OK);
+            return new ResponseEntity<>(user, HttpStatus.OK);
         }catch (AccountDoesNotExistException e){
             throw new NotFoudException("User not foud: " + userId);
         }
@@ -62,7 +57,7 @@ public class UserController {
 
         List<UserDTO> users = userServices.findAll();
 
-        return new ResponseEntity<List<UserDTO>>(users, HttpStatus.OK);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
