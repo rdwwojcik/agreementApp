@@ -15,7 +15,6 @@ agreement\rest\exceptions\FoundException.class
 agreement\core\mapper\AgreementMapperImpl.class
 agreement\core\exceptions\ErrorHandler.class
 agreement\core\entities\Agreement.class
-agreement\core\exceptions\ExceptionContent.class
 agreement\core\dto\AgreementDTO.class
 agreement\core\dto\UserDTO.class
 agreement\core\mapper\UserMapperImpl.class

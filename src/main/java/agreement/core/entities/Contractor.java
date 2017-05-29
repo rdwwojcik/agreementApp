@@ -16,41 +16,41 @@ public class Contractor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long    coId;
-    private String  coName;
+    private Long    id;
+    private String  name;
     @Enumerated(EnumType.ORDINAL)
-    private KontrahentEnum coType;
-    @OneToMany(mappedBy = "agIdContractor")
+    private KontrahentEnum type;
+    @OneToMany(mappedBy = "idContractor")
     private List<Agreement> agreements;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    coCreatedDate;
+    private Date    createdDate;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    coModificationDate;
+    private Date    modificationDate;
 
-    public Long getCoId() {
-        return coId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCoId(Long coId) {
-        this.coId = coId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getCoName() {
-        return coName;
+    public String getName() {
+        return name;
     }
 
-    public void setCoName(String coName) {
-        this.coName = coName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public KontrahentEnum getCoType() {
-        return coType;
+    public KontrahentEnum getType() {
+        return type;
     }
 
-    public void setCoType(KontrahentEnum coType) {
-        this.coType = coType;
+    public void setType(KontrahentEnum type) {
+        this.type = type;
     }
 
     public List<Agreement> getAgreements() {
@@ -61,19 +61,19 @@ public class Contractor {
         this.agreements = agreements;
     }
 
-    public Date getCoCreatedDate() {
-        return coCreatedDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCoCreatedDate(Date coCreatedDate) {
-        this.coCreatedDate = coCreatedDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public Date getCoModificationDate() {
-        return coModificationDate;
+    public Date getModificationDate() {
+        return modificationDate;
     }
 
-    public void setCoModificationDate(Date coModificationDate) {
-        this.coModificationDate = coModificationDate;
+    public void setModificationDate(Date modificationDate) {
+        this.modificationDate = modificationDate;
     }
 }

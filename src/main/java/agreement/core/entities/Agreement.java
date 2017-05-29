@@ -14,77 +14,77 @@ public class Agreement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long    agId;
-    private String  agDescription;
+    private Long    id;
+    private String  description;
     @ManyToOne
-    @JoinColumn(name = "agIdContractor")
-    private Contractor agIdContractor;
+    @JoinColumn(name = "idContractor")
+    private Contractor idContractor;
     @Temporal(TemporalType.DATE)
     @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    agDateFrom;
+    private Date    fateFrom;
     @Temporal(TemporalType.DATE)
     @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    agDateTo;
+    private Date    dateTo;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    agCreatedDate;
+    private Date    createdDate;
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    agModificationDate;
+    private Date    modificationDate;
 
-    public Long getAgId() {
-        return agId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAgId(Long agId) {
-        this.agId = agId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getAgDescription() {
-        return agDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAgDescription(String agDescription) {
-        this.agDescription = agDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Contractor getAgIdContractor() {
-        return agIdContractor;
+    public Contractor getIdContractor() {
+        return idContractor;
     }
 
-    public void setAgIdContractor(Contractor agIdContractor) {
-        this.agIdContractor = agIdContractor;
+    public void setIdContractor(Contractor idContractor) {
+        this.idContractor = idContractor;
     }
 
-    public Date getAgDateFrom() {
-        return agDateFrom;
+    public Date getFateFrom() {
+        return fateFrom;
     }
 
-    public void setAgDateFrom(Date agDateFrom) {
-        this.agDateFrom = agDateFrom;
+    public void setFateFrom(Date fateFrom) {
+        this.fateFrom = fateFrom;
     }
 
-    public Date getAgDateTo() {
-        return agDateTo;
+    public Date getDateTo() {
+        return dateTo;
     }
 
-    public void setAgDateTo(Date agDateTo) {
-        this.agDateTo = agDateTo;
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
     }
 
-    public Date getAgCreatedDate() {
-        return agCreatedDate;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setAgCreatedDate(Date agCreatedDate) {
-        this.agCreatedDate = agCreatedDate;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public Date getAgModificationDate() {
-        return agModificationDate;
+    public Date getModificationDate() {
+        return modificationDate;
     }
 
-    public void setAgModificationDate(Date agModificationDate) {
-        this.agModificationDate = agModificationDate;
+    public void setModificationDate(Date modificationDate) {
+        this.modificationDate = modificationDate;
     }
 }

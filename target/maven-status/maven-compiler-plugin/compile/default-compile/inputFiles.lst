@@ -11,7 +11,6 @@ C:\Projekty\agreementApp\src\main\java\agreement\core\dto\AgreementDTO.java
 C:\Projekty\agreementApp\src\main\java\agreement\core\exceptions\UserRegistrationException.java
 C:\Projekty\agreementApp\src\main\java\agreement\core\entities\Agreement.java
 C:\Projekty\agreementApp\src\main\java\agreement\core\exceptions\AccountDoesNotExistException.java
-C:\Projekty\agreementApp\src\main\java\agreement\core\exceptions\ExceptionContent.java
 C:\Projekty\agreementApp\src\main\java\agreement\core\entities\enums\KontrahentEnum.java
 C:\Projekty\agreementApp\src\main\java\agreement\core\services\impl\UserServicesImpl.java
 C:\Projekty\agreementApp\src\main\java\agreement\core\security\Password.java
