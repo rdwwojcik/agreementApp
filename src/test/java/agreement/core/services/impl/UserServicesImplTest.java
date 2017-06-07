@@ -2,18 +2,24 @@ package agreement.core.services.impl;
 
 import agreement.core.dto.UserDTO;
 import agreement.core.entities.User;
+import agreement.core.exceptions.UserRegistrationException;
 import agreement.core.mapper.UserMapper;
 import agreement.core.mapper.UserMapperImpl;
 import agreement.core.repositories.UserRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
+
+import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
+import static org.assertj.core.api.Assertions.catchThrowable;
+
 /**
  * Created by Radek on 08.03.2017.
  */
@@ -62,6 +68,21 @@ public class UserServicesImplTest {
         assertThat(result, is(notNullValue()));
         verify(userRepository).save((User) any());
         verify(userRepository, times(1)).save(newUser);
+    }
+
+    @Test
+    public void createUser_Should_Throw_Exception_User_Exist(){
+        User user = getNewUser();
+
+        Mockito.when(userRepository.findByLogin(user.getLogin())).thenReturn(user);
+        Mockito.when(userMapper.toDTO(user)).thenReturn(getNewUserDTO());
+
+        final Throwable throwable = catchThrowable(() -> userServices.createUser(getNewUserDTO()));
+
+        System.out.println();
+
+        Assertions.assertThat(throwable)
+                .isInstanceOf(UserRegistrationException.class);
     }
 
     @Test

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2017-05-29T21:55:44+0200",
+    date = "2017-06-07T22:33:36+0200",
     comments = "version: 1.2.0.Beta2, compiler: javac, environment: Java 1.8.0_60 (Oracle Corporation)"
 )
 @Component
@@ -23,11 +23,11 @@ public class AgreementMapperImpl implements AgreementMapper {
 
         Agreement agreement = new Agreement();
 
-        agreement.setAgId( agreementDTO.getAgId() );
-        agreement.setAgDescription( agreementDTO.getAgDescription() );
-        agreement.setAgIdContractor( agreementDTO.getAgIdContractor() );
-        agreement.setAgDateFrom( agreementDTO.getAgDateFrom() );
-        agreement.setAgDateTo( agreementDTO.getAgDateTo() );
+        agreement.setId( agreementDTO.getId() );
+        agreement.setDescription( agreementDTO.getDescription() );
+        agreement.setIdContractor( agreementDTO.getIdContractor() );
+        agreement.setDateFrom( agreementDTO.getDateFrom() );
+        agreement.setDateTo( agreementDTO.getDateTo() );
 
         return agreement;
     }
@@ -40,11 +40,11 @@ public class AgreementMapperImpl implements AgreementMapper {
 
         AgreementDTO agreementDTO = new AgreementDTO();
 
-        agreementDTO.setAgId( agreement.getAgId() );
-        agreementDTO.setAgDescription( agreement.getAgDescription() );
-        agreementDTO.setAgIdContractor( agreement.getAgIdContractor() );
-        agreementDTO.setAgDateFrom( agreement.getAgDateFrom() );
-        agreementDTO.setAgDateTo( agreement.getAgDateTo() );
+        agreementDTO.setId( agreement.getId() );
+        agreementDTO.setDescription( agreement.getDescription() );
+        agreementDTO.setIdContractor( agreement.getIdContractor() );
+        agreementDTO.setDateFrom( agreement.getDateFrom() );
+        agreementDTO.setDateTo( agreement.getDateTo() );
 
         return agreementDTO;
     }

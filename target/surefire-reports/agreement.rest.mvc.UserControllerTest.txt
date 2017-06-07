@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: agreement.rest.mvc.UserControllerTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.239 sec <<< FAILURE! - in agreement.rest.mvc.UserControllerTest
-createUserWithSuccess(agreement.rest.mvc.UserControllerTest)  Time elapsed: 1.016 sec  <<< FAILURE!
+Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 4.568 sec <<< FAILURE! - in agreement.rest.mvc.UserControllerTest
+createUserWithSuccess(agreement.rest.mvc.UserControllerTest)  Time elapsed: 3.834 sec  <<< FAILURE!
 java.lang.AssertionError: Status expected:<200> but was:<400>
 	at org.springframework.test.util.AssertionErrors.fail(AssertionErrors.java:54)
 	at org.springframework.test.util.AssertionErrors.assertEquals(AssertionErrors.java:81)

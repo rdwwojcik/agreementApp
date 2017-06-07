@@ -21,7 +21,7 @@ public class Agreement {
     private Contractor idContractor;
     @Temporal(TemporalType.DATE)
     @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    fateFrom;
+    private Date    dateFrom;
     @Temporal(TemporalType.DATE)
     @JsonSerialize(using = CustomDateSerializer.class)
     private Date    dateTo;
@@ -56,12 +56,12 @@ public class Agreement {
         this.idContractor = idContractor;
     }
 
-    public Date getFateFrom() {
-        return fateFrom;
+    public Date getDateFrom() {
+        return dateFrom;
     }
 
-    public void setFateFrom(Date fateFrom) {
-        this.fateFrom = fateFrom;
+    public void setDateFrom(Date fateFrom) {
+        this.dateFrom = fateFrom;
     }
 
     public Date getDateTo() {

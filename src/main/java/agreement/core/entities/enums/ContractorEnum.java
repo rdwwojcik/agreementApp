@@ -3,7 +3,7 @@ package agreement.core.entities.enums;
 /**
  * Created by Radek on 21.03.2017.
  */
-public enum KontrahentEnum {
+public enum ContractorEnum {
 
     SSO(17787),
     KKB(17781),
@@ -12,7 +12,7 @@ public enum KontrahentEnum {
 
     private long id;
 
-    private KontrahentEnum(long id){
+    ContractorEnum(long id){
         this.id = id;
     }
 

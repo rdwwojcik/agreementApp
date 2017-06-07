@@ -12,54 +12,54 @@ import java.util.Date;
  */
 public class AgreementDTO {
 
-    private Long    agId;
-    private String  agDescription;
+    private Long    id;
+    private String  description;
     @NotNull
-    private Contractor agIdContractor;
-    @NotNull
-    @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    agDateFrom;
+    private Contractor idContractor;
     @NotNull
     @JsonSerialize(using = CustomDateSerializer.class)
-    private Date    agDateTo;
+    private Date    dateFrom;
+    @NotNull
+    @JsonSerialize(using = CustomDateSerializer.class)
+    private Date    dateTo;
 
-    public Long getAgId() {
-        return agId;
+    public Long getId() {
+        return id;
     }
 
-    public void setAgId(Long agId) {
-        this.agId = agId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getAgDescription() {
-        return agDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAgDescription(String agDescription) {
-        this.agDescription = agDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Contractor getAgIdContractor() {
-        return agIdContractor;
+    public Contractor getIdContractor() {
+        return idContractor;
     }
 
-    public void setAgIdContractor(Contractor agIdContractor) {
-        this.agIdContractor = agIdContractor;
+    public void setIdContractor(Contractor idContractor) {
+        this.idContractor = idContractor;
     }
 
-    public Date getAgDateFrom() {
-        return agDateFrom;
+    public Date getDateFrom() {
+        return dateFrom;
     }
 
-    public void setAgDateFrom(Date agDateFrom) {
-        this.agDateFrom = agDateFrom;
+    public void setDateFrom(Date dateFrom) {
+        this.dateFrom = dateFrom;
     }
 
-    public Date getAgDateTo() {
-        return agDateTo;
+    public Date getDateTo() {
+        return dateTo;
     }
 
-    public void setAgDateTo(Date agDateTo) {
-        this.agDateTo = agDateTo;
+    public void setDateTo(Date dateTo) {
+        this.dateTo = dateTo;
     }
 }

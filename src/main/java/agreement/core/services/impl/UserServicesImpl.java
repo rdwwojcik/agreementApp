@@ -20,11 +20,15 @@ import java.util.List;
 @Service
 public class UserServicesImpl implements UserService {
 
-    @Autowired
-    private UserMapper userMapper;
+    private final UserMapper userMapper;
+
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public UserServicesImpl(UserMapper userMapper, UserRepository userRepository) {
+        this.userMapper = userMapper;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDTO createUser(UserDTO userDTO) {
@@ -46,11 +50,14 @@ public class UserServicesImpl implements UserService {
     @Override
     public UserDTO updateUser(UserDTO user) {
 
-        User updated = null;
+        User updated;
         User existed = userRepository.findOne(user.getId());
         if(existed != null){
             existed.setModificationDate(new Date());
             updated = userRepository.save(userMapper.fromDTO(user));
+        }
+        else{
+            throw new AccountDoesNotExistException("User not exist");
         }
 
         return userMapper.toDTO(updated);

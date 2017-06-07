@@ -1,7 +1,7 @@
 package agreement.core.entities;
 
 import agreement.core.tools.CustomDateSerializer;
-import agreement.core.entities.enums.KontrahentEnum;
+import agreement.core.entities.enums.ContractorEnum;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
@@ -19,7 +19,7 @@ public class Contractor {
     private Long    id;
     private String  name;
     @Enumerated(EnumType.ORDINAL)
-    private KontrahentEnum type;
+    private ContractorEnum type;
     @OneToMany(mappedBy = "idContractor")
     private List<Agreement> agreements;
     @Temporal(TemporalType.TIMESTAMP)
@@ -45,11 +45,11 @@ public class Contractor {
         this.name = name;
     }
 
-    public KontrahentEnum getType() {
+    public ContractorEnum getType() {
         return type;
     }
 
-    public void setType(KontrahentEnum type) {
+    public void setType(ContractorEnum type) {
         this.type = type;
     }
 
