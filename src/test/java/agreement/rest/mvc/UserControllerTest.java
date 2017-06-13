@@ -41,8 +41,8 @@ public class UserControllerTest {
     public void getUserSuccess() throws Exception {
 
         UserDTO user = new UserDTO(5L, "Franek", "Dolas", "fDolas");
-        Mockito.when(this.userServices.findById(Long.valueOf(Matchers.eq(5L)))).thenReturn(user);
-        mockMvc.perform(get("/rest/user/5", new Object[0]))
+        Mockito.when(this.userServices.findById(Matchers.eq(5L))).thenReturn(user);
+        mockMvc.perform(get("/rest/user/5"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
@@ -65,18 +65,18 @@ public class UserControllerTest {
 
     @Test
     public void createUserWithSuccess() throws Exception {
-        UserDTO user = new UserDTO(5L, "Franek", "Dolas", "Franco");
-        user.setPassword("dolllas");
+        UserDTO user = new UserDTO(5L, "Franek", "Dolas", "FrancoDol");
+        user.setPassword("dollllllas");
 
-        Mockito.when(userServices.createUser((UserDTO) Matchers.any(UserDTO.class))).thenReturn(user);
+        Mockito.when(userServices.createUser(Matchers.any(UserDTO.class))).thenReturn(user);
         mockMvc.perform(post("/rest/user")
-                .content("{\"id\":5,\"name\":\"Franek\",\"lastName\":\"Dolas\",\"login\":\"Franco\",\"password\":\"dolllas\"}")
+                .content("{\"id\":5,\"name\":\"Franek\",\"lastName\":\"Dolas\",\"login\":\"FrancoDol\",\"password\":\"dollllllas\"}")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(jsonPath("$.name", is("Franek")))
                 .andExpect(jsonPath("$.lastName", is("Dolas")))
-                .andExpect(jsonPath("$.login", is("Franco")));
+                .andExpect(jsonPath("$.login", is("FrancoDol")));
 
     }
 }

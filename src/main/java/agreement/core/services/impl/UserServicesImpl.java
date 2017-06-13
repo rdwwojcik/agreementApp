@@ -51,10 +51,10 @@ public class UserServicesImpl implements UserService {
     public UserDTO updateUser(UserDTO user) {
 
         User updated;
-        User existed = userRepository.findOne(user.getId());
-        if(existed != null){
-            existed.setModificationDate(new Date());
-            updated = userRepository.save(userMapper.fromDTO(user));
+        if(userRepository.findOne(user.getId()) != null){
+            updated = userMapper.fromDTO(user);
+            updated.setModificationDate(new Date());
+            updated = userRepository.save(updated);
         }
         else{
             throw new AccountDoesNotExistException("User not exist");

@@ -14,6 +14,7 @@ public class AgreementFile {
     private Long   id;
     private String name;
     private byte[] file;
+    private String extension;
     @ManyToOne
     @JoinColumn(name = "idAgreement")
     private Agreement idAgreement;
@@ -40,6 +41,14 @@ public class AgreementFile {
 
     public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
     public Agreement getIdAgreement() {

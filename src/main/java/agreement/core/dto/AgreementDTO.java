@@ -1,11 +1,13 @@
 package agreement.core.dto;
 
+import agreement.core.entities.AgreementFile;
 import agreement.core.entities.Contractor;
 import agreement.core.tools.CustomDateSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Radek on 11.05.2017.
@@ -16,6 +18,7 @@ public class AgreementDTO {
     private String  description;
     @NotNull
     private Contractor idContractor;
+    private List<AgreementFile> files;
     @NotNull
     @JsonSerialize(using = CustomDateSerializer.class)
     private Date    dateFrom;
@@ -45,6 +48,14 @@ public class AgreementDTO {
 
     public void setIdContractor(Contractor idContractor) {
         this.idContractor = idContractor;
+    }
+
+    public List<AgreementFile> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<AgreementFile> files) {
+        this.files = files;
     }
 
     public Date getDateFrom() {

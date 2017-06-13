@@ -16,6 +16,7 @@ public class AgreementFileDTO {
     private String name;
     @NotNull
     private byte[] file;
+    private String extension;
     @NotNull
     private Agreement agreement;
 
@@ -33,6 +34,14 @@ public class AgreementFileDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
     }
 
     public byte[] getFile() {

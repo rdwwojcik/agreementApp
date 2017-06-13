@@ -52,7 +52,7 @@ public class UserServicesImplTest {
 
         UserDTO user = userServices.findById(1L);
 
-        assertThat(user.hashCode(), equalTo(u.hashCode()));
+        assertThat(user.getLogin(), equalTo(u.getLogin()));
     }
 
     @Test

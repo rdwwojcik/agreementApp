@@ -18,7 +18,7 @@ public class UserDTO{
     @Length(min = 8, max = 30, message = "Login - not correct long of login")
     private String  login;
     @NotNull
-    @Length(min = 8, max = 30, message = "Password - not correct long of login")
+    @Length(min = 8, max = 30, message = "Password - not correct long of password")
     private String  password;
 
     public UserDTO() {

@@ -20,6 +20,7 @@ public class Contractor {
     private String  name;
     @Enumerated(EnumType.ORDINAL)
     private ContractorEnum type;
+    private String nip;
     @OneToMany(mappedBy = "idContractor")
     private List<Agreement> agreements;
     @Temporal(TemporalType.TIMESTAMP)
@@ -75,5 +76,13 @@ public class Contractor {
 
     public void setModificationDate(Date modificationDate) {
         this.modificationDate = modificationDate;
+    }
+
+    public String getNip() {
+        return nip;
+    }
+
+    public void setNip(String nip) {
+        this.nip = nip;
     }
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by Radek on 21.03.2017.
@@ -13,12 +14,15 @@ import java.util.Date;
 public class Agreement {
 
     @Id
+    @Column(name = "agreement_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long    id;
     private String  description;
     @ManyToOne
     @JoinColumn(name = "idContractor")
     private Contractor idContractor;
+    @OneToMany(mappedBy = "idAgreement")
+    private List<AgreementFile> files;
     @Temporal(TemporalType.DATE)
     @JsonSerialize(using = CustomDateSerializer.class)
     private Date    dateFrom;
