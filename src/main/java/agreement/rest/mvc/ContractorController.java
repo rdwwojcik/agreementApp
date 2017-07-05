@@ -6,10 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -33,11 +32,35 @@ public class ContractorController {
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
-    @GetMapping(value = "{contractorId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<ContractorDTO> getContractor(Long contractorId){
+    @GetMapping(value = "/{contractorId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<ContractorDTO> getContractor(@PathVariable Long contractorId){
 
         ContractorDTO contractor = conractorService.findById(contractorId);
 
         return new ResponseEntity<>(contractor, HttpStatus.FOUND);
+    }
+
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<ContractorDTO> createContractor(@Valid @RequestBody ContractorDTO contractor){
+
+        ContractorDTO contractorDTO = conractorService.create(contractor);
+
+        return new ResponseEntity<>(contractorDTO, HttpStatus.CREATED);
+    }
+
+    @PutMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<ContractorDTO> updateContractor(@Valid @RequestBody ContractorDTO contractorDTO){
+
+        ContractorDTO dto = conractorService.update(contractorDTO);
+
+        return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{contractorId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity deleteContractor(@PathVariable Long contractorId){
+
+        conractorService.delete(contractorId);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
