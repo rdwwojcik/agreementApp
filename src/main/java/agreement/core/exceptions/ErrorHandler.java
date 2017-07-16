@@ -1,19 +1,13 @@
 package agreement.core.exceptions;
 
-import io.swagger.annotations.ResponseHeader;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.annotation.ResponseStatusExceptionResolver;
-
-import java.util.Objects;
 
 //import org.springframework.validation.FieldError;
 
@@ -48,7 +42,25 @@ public class ErrorHandler {
             default: { body = "Brak wiadomosci"; }
         }
 
-        return new ResponseEntity<>(body, new HttpHeaders(), status);
+        return new ResponseEntity<>(body, status);
+    }
+
+    @ExceptionHandler(ContractorRegistrationException.class)
+    public ResponseEntity<Object> handleContractorException(ContractorRegistrationException ex){
+
+        String      body;
+        HttpStatus  status = HttpStatus.NO_CONTENT;
+
+        switch (ex.getFailReason()){
+            case CONTRACTOR_NOT_FOUND: {
+                body = "Contractor not found";
+                status = HttpStatus.NOT_FOUND;
+                break;
+            }
+            default: { body = "Empty message"; }
+        }
+
+        return new ResponseEntity<>(body, status);
     }
 
 //    @ExceptionHandler(MethodArgumentNotValidException.class)
