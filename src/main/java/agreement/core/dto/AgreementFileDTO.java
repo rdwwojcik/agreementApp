@@ -1,7 +1,7 @@
 package agreement.core.dto;
 
-import agreement.core.entities.Agreement;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,14 +11,15 @@ import javax.validation.constraints.NotNull;
 public class AgreementFileDTO {
 
     private Long id;
+    private String name;
+    private String description;
     @NotNull
     @Length(min = 5, max = 50, message = "Incorrect name length min:5, max:50")
-    private String name;
+    private String fileName;
     @NotNull
-    private byte[] file;
-    private String extension;
+    private MultipartFile file;
     @NotNull
-    private Agreement agreement;
+    private AgreementDTO agreement;
 
     public Long getId() {
         return id;
@@ -36,27 +37,35 @@ public class AgreementFileDTO {
         this.name = name;
     }
 
-    public String getExtension() {
-        return extension;
+    public String getDescription() {
+        return description;
     }
 
-    public void setExtension(String extension) {
-        this.extension = extension;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public byte[] getFile() {
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public MultipartFile getFile() {
         return file;
     }
 
-    public void setFile(byte[] file) {
+    public void setFile(MultipartFile file) {
         this.file = file;
     }
 
-    public Agreement getAgreement() {
+    public AgreementDTO getAgreement() {
         return agreement;
     }
 
-    public void setAgreement(Agreement agreement) {
+    public void setAgreement(AgreementDTO agreement) {
         this.agreement = agreement;
     }
 }

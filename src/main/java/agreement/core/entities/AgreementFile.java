@@ -13,8 +13,10 @@ public class AgreementFile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long   id;
     private String name;
+    private String description;
+    private String fileName;
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] file;
-    private String extension;
     @ManyToOne
     @JoinColumn(name = "idAgreement")
     private Agreement idAgreement;
@@ -35,20 +37,28 @@ public class AgreementFile {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
     public byte[] getFile() {
         return file;
     }
 
     public void setFile(byte[] file) {
         this.file = file;
-    }
-
-    public String getExtension() {
-        return extension;
-    }
-
-    public void setExtension(String extension) {
-        this.extension = extension;
     }
 
     public Agreement getIdAgreement() {

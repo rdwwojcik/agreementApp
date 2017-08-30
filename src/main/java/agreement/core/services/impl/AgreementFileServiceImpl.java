@@ -10,6 +10,7 @@ import jdk.nashorn.internal.objects.NativeArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,12 +30,12 @@ public class AgreementFileServiceImpl implements AgreementFileService {
     }
 
     @Override
-    public AgreementFileDTO addAgreementFile(AgreementFileDTO fileDTO) {
+    public AgreementFileDTO addAgreementFile(AgreementFileDTO fileDTO) throws IOException {
         return mapper.toDTO(repository.save(mapper.fromDTO(fileDTO)));
     }
 
     @Override
-    public AgreementFileDTO updateAgreementFile(AgreementFileDTO fileDTO) {
+    public AgreementFileDTO updateAgreementFile(AgreementFileDTO fileDTO) throws IOException {
         return mapper.toDTO(repository.save(mapper.fromDTO(fileDTO)));
     }
 
@@ -43,11 +44,11 @@ public class AgreementFileServiceImpl implements AgreementFileService {
         return mapper.toDTO(repository.findOne(id));
     }
 
-    @Override
-    public List<AgreementFileDTO> findAll() {
-
-        List<AgreementFile> agreementFiles = (List<AgreementFile>) repository.findAll();
-
-        return mapper.toDTO(agreementFiles);
-    }
+//    @Override
+//    public List<AgreementFileDTO> findAll() {
+//
+//        List<AgreementFile> agreementFiles = (List<AgreementFile>) repository.findAll();
+//
+//        return mapper.toDTO(agreementFiles);
+//    }
 }
