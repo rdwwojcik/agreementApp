@@ -9,6 +9,7 @@ import agreement.core.repositories.UserRepository;
 import agreement.core.security.Password;
 import agreement.core.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -40,7 +41,9 @@ public class UserServicesImpl implements UserService {
 
         User user = userMapper.fromDTO(userDTO);
 
-        user.setMd5(Password.generateMd5(user.getPassword()));
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        user.setPassword(user.getPassword());
+        user.setPasswordHash(passwordEncoder.encode(user.getPassword()));
         user.setCreationDate(new Date());
         user.setModificationDate(new Date());
 

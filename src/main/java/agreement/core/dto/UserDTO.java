@@ -1,5 +1,6 @@
 package agreement.core.dto;
 
+import agreement.core.security.Role;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -20,6 +21,9 @@ public class UserDTO{
     @NotNull
     @Length(min = 8, max = 30, message = "Password - not correct long of password")
     private String  password;
+    private String  passwordHash;
+    private String  email;
+    private Role    role;
 
     public UserDTO() {
     }
@@ -71,7 +75,31 @@ public class UserDTO{
         this.password = password;
     }
 
-//    @Override
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;

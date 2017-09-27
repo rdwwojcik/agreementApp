@@ -1,5 +1,6 @@
 package agreement.core.entities;
 
+import agreement.core.security.Role;
 import agreement.core.tools.CustomDateSerializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -15,20 +16,25 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "us_id")
+    @Column(name = "us_id", updatable = false)
     private Long    id;
-    @Column(name = "us_imie")
+    @Column(name = "us_imie", nullable = false)
     private String  name;
-    @Column(name = "us_nazwisko")
+    @Column(name = "us_nazwisko", nullable = false)
     private String  lastName;
-    @Column(name = "us_login")
+    @Column(name = "us_login", nullable = false, unique = true)
     private String  login;
-    @Column(name = "us_haslo")
+    @Column(name = "us_haslo", nullable = false)
     @JsonIgnore
     private String  password;
-    @Column(name = "us_md5")
+    @Column(name = "us_password_hash", nullable = false)
     @JsonIgnore
-    private String  md5;
+    private String  passwordHash;
+    @Column(name = "us_email", nullable = false)
+    private String email;
+    @Column(name = "us_role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
     @Column(name = "us_data_utworzenia")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonSerialize(using = CustomDateSerializer.class)
@@ -87,12 +93,28 @@ public class User {
         this.password = password;
     }
 
-    public String getMd5() {
-        return md5;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setMd5(String md5) {
-        this.md5 = md5;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public Date getCreationDate() {
@@ -118,10 +140,10 @@ public class User {
 
         User user = (User) o;
 
-        if (!id.equals(user.id)) return false;
-        if (!name.equals(user.name)) return false;
-        if (!lastName.equals(user.lastName)) return false;
-        return login.equals(user.login);
+        return login.equals(user.login)
+                && lastName.equals(user.lastName)
+                && name.equals(user.name)
+                && id.equals(user.id);
     }
 
     @Override
