@@ -30,7 +30,7 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<UserDTO> createUser(@Valid @RequestBody UserDTO user){
 
-        return new ResponseEntity<>(userServices.createUser(user), HttpStatus.OK);
+        return new ResponseEntity<>(userServices.createUser(user), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.PUT)
