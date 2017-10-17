@@ -7,6 +7,8 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by Radek on 17.10.2017.
+ *
+ * exercises: https://www.concretepage.com/spring/spring-mvc/spring-rest-client-resttemplate-consume-restful-web-service-example-xml-json
  */
 public class ClientSpring {
 
